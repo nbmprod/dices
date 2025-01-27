@@ -68,6 +68,15 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Style for disabled button */
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
 /* Dice Animation Variations */
 @keyframes spin-and-fall {
     0% {
@@ -83,10 +92,10 @@ button:hover {
 
 @keyframes bounce {
     0%, 100% {
-        transform: translateY(0) rotate(360deg);
+        transform: translateY(0);
     }
     50% {
-        transform: translateY(-200px) rotate(180deg);
+        transform: translateY(-200px);
     }
 }
 

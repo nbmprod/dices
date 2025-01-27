@@ -25,6 +25,7 @@ h1 {
     justify-content: center;
     gap: 20px;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .dice {
@@ -39,6 +40,11 @@ h1 {
     background-color: #eeeeee;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
+    animation: none;
+}
+
+.dice.throwing {
+    animation: spin-and-fall 1s ease-in-out;
 }
 
 .dot {
@@ -50,6 +56,7 @@ h1 {
     align-self: center;
 }
 
+/* Button Styling */
 button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -63,4 +70,17 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+/* Dice Animation */
+@keyframes spin-and-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-150px) rotate(360deg);
+    }
+    100% {
+        transform: translateY(0) rotate(720deg);
+    }
 }

@@ -26,14 +26,24 @@ function createDiceFace(value, diceElement) {
 }
 
 function rollDice() {
-    const dice1Value = Math.floor(Math.random() * 6) + 1;
-    const dice2Value = Math.floor(Math.random() * 6) + 1;
-
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
 
-    createDiceFace(dice1Value, dice1);
-    createDiceFace(dice2Value, dice2);
+    // Add animation class
+    dice1.classList.add('throwing');
+    dice2.classList.add('throwing');
+
+    // After animation ends, update dice faces and remove animation class
+    setTimeout(() => {
+        const dice1Value = Math.floor(Math.random() * 6) + 1;
+        const dice2Value = Math.floor(Math.random() * 6) + 1;
+
+        createDiceFace(dice1Value, dice1);
+        createDiceFace(dice2Value, dice2);
+
+        dice1.classList.remove('throwing');
+        dice2.classList.remove('throwing');
+    }, 1000); // Matches animation duration (1s)
 }
 
 document.getElementById('rollButton').addEventListener('click', rollDice);

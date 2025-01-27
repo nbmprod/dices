@@ -1,3 +1,6 @@
+// List of animation classes
+const animations = ['spin-and-fall', 'zoom-spin', 'wobble'];
+
 function createDiceFace(value, diceElement) {
     // Clear previous dots
     diceElement.innerHTML = '';
@@ -29,11 +32,15 @@ function rollDice() {
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
 
-    // Add animation class
-    dice1.classList.add('throwing');
-    dice2.classList.add('throwing');
+    // Choose random animation for both dice
+    const animation1 = animations[Math.floor(Math.random() * animations.length)];
+    const animation2 = animations[Math.floor(Math.random() * animations.length)];
 
-    // After animation ends, update dice faces and remove animation class
+    // Add random animation classes
+    dice1.style.animation = `${animation1} 1s ease-in-out`;
+    dice2.style.animation = `${animation2} 1s ease-in-out`;
+
+    // After animation ends, update dice faces and reset animation styles
     setTimeout(() => {
         const dice1Value = Math.floor(Math.random() * 6) + 1;
         const dice2Value = Math.floor(Math.random() * 6) + 1;
@@ -41,8 +48,8 @@ function rollDice() {
         createDiceFace(dice1Value, dice1);
         createDiceFace(dice2Value, dice2);
 
-        dice1.classList.remove('throwing');
-        dice2.classList.remove('throwing');
+        dice1.style.animation = 'none';
+        dice2.style.animation = 'none';
     }, 1000); // Matches animation duration (1s)
 }
 

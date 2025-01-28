@@ -1,8 +1,5 @@
 const animations = ['spin-and-fall', 'zoom-spin', 'wobble']; // Variety of animations
 
-let playerScore = 0;
-let cpuScore = 0;
-
 // Helper function to create dice face
 function createDiceFace(value, diceElement) {
     diceElement.innerHTML = '';
@@ -39,70 +36,25 @@ function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
 }
 
-// CPU Turn
-function cpuTurn() {
-    const dice1 = document.getElementById('dice1');
-    const dice2 = document.getElementById('dice2');
-    const status = document.getElementById('status');
-    const playerRollButton = document.getElementById('playerRollButton');
-    const freeRollButton = document.getElementById('freeRollButton');
-
-    animateDice(dice1);
-    animateDice(dice2);
-
-    setTimeout(() => {
-        const cpuRoll1 = rollDice();
-        const cpuRoll2 = rollDice();
-        cpuScore = cpuRoll1 + cpuRoll2;
-
-        createDiceFace(cpuRoll1, dice1);
-        createDiceFace(cpuRoll2, dice2);
-
-        setTimeout(() => {
-            // Determine and display winner
-            if (playerScore > cpuScore) {
-                status.textContent = `Player Wins! Player: ${playerScore}, CPU: ${cpuScore}`;
-            } else if (playerScore < cpuScore) {
-                status.textContent = `CPU Wins! Player: ${playerScore}, CPU: ${cpuScore}`;
-            } else {
-                status.textContent = `It's a Tie! Player: ${playerScore}, CPU: ${cpuScore}`;
-            }
-
-            // Reactivate buttons after the game finishes
-            playerRollButton.disabled = false;
-            freeRollButton.disabled = false;
-            playerRollButton.textContent = "Play Again!";
-        }, 500);
-    }, 1000);
-}
-
-// Player Turn
-function playerTurn() {
-    const dice1 = document.getElementById('dice1');
-    const dice2 = document.getElementById('dice2');
-    const status = document.getElementById('status');
-    const playerRollButton = document.getElementById('playerRollButton');
-    const freeRollButton = document.getElementById('freeRollButton');
-
-    // Disable buttons during the game
-    playerRollButton.disabled = true;
-    freeRollButton.disabled = true;
-
-    status.textContent = "Player's turn...";
-    animateDice(dice1);
-    animateDice(dice2);
-
-    setTimeout(() => {
-        const playerRoll1 = rollDice();
-        const playerRoll2 = rollDice();
-        playerScore = playerRoll1 + playerRoll2;
-
-        createDiceFace(playerRoll1, dice1);
-        createDiceFace(playerRoll2, dice2);
-
-        status.textContent = "CPU's turn...";
-        setTimeout(cpuTurn, 1500); // Delay before CPU's turn
-    }, 1000);
+// Generate motivational text based on roll result
+function getMotivationalText(total) {
+    if (total >= 6) {
+        const cheerfulPhrases = [
+            `${total}! Amazing!`,
+            `${total}, you are brilliant!`,
+            `${total}! Fantastic roll!`,
+            `${total}! You're unstoppable!`,
+        ];
+        return cheerfulPhrases[Math.floor(Math.random() * cheerfulPhrases.length)];
+    } else {
+        const motivationalPhrases = [
+            `${total}, don't worry, try again!`,
+            `${total}, don't be upset, sweet!`,
+            `${total}, keep going!`,
+            `${total}, you'll get there!`,
+        ];
+        return motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
+    }
 }
 
 // Free Rolling Mode
@@ -110,27 +62,32 @@ function freeRolling() {
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
     const status = document.getElementById('status');
-    const playerRollButton = document.getElementById('playerRollButton');
 
-    // Disable the "Player vs. CPU" button during free rolling
-    playerRollButton.disabled = true;
+    // Fade out the status text
+    status.classList.remove('visible');
+    status.classList.add('hidden');
 
-    status.textContent = "Free Rolling Mode! Roll as much as you like.";
     animateDice(dice1);
     animateDice(dice2);
 
     setTimeout(() => {
         const roll1 = rollDice();
         const roll2 = rollDice();
+        const total = roll1 + roll2;
 
         createDiceFace(roll1, dice1);
         createDiceFace(roll2, dice2);
 
-        // Re-enable "Player vs. CPU" button after the roll
-        playerRollButton.disabled = false;
+        // Update status with motivational text
+        status.textContent = getMotivationalText(total);
+
+        // Fade in the status text
+        setTimeout(() => {
+            status.classList.remove('hidden');
+            status.classList.add('visible');
+        }, 300); // Wait for fade-out to complete before showing the new text
     }, 1000);
 }
 
 // Event Listeners
-document.getElementById('playerRollButton').addEventListener('click', playerTurn);
 document.getElementById('freeRollButton').addEventListener('click', freeRolling);

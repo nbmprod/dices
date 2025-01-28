@@ -40,18 +40,18 @@ function rollDice() {
 function getMotivationalText(total) {
     if (total >= 6) {
         const cheerfulPhrases = [
-            `${total}! Amazing!`,
-            `${total}, you are brilliant!`,
-            `${total}! Fantastic roll!`,
-            `${total}! You're unstoppable!`,
+            `Amazing!`,
+            `You are brilliant!`,
+            `Fantastic roll!`,
+            `You're unstoppable!`,
         ];
         return cheerfulPhrases[Math.floor(Math.random() * cheerfulPhrases.length)];
     } else {
         const motivationalPhrases = [
-            `${total}, don't worry, try again!`,
-            `${total}, don't be upset, sweet!`,
-            `${total}, keep going!`,
-            `${total}, you'll get there!`,
+            `Don't worry, try again!`,
+            `Don't be upset, sweet!`,
+            `Keep going!`,
+            `You'll get there!`,
         ];
         return motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
     }
@@ -62,6 +62,7 @@ function freeRolling() {
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
     const status = document.getElementById('status');
+    const totalText = document.getElementById('total');
 
     // Fade out the status text
     status.classList.remove('visible');
@@ -80,6 +81,8 @@ function freeRolling() {
 
         // Update status with motivational text
         status.textContent = getMotivationalText(total);
+        totalText.textContent = total;
+
 
         // Fade in the status text
         setTimeout(() => {

@@ -12,15 +12,15 @@ body {
 
 .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 20px;
     border-radius: 8px;
-    height: 400px;
-    width: 400px;
     background-color: 	#212d36;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    gap: 30px;
+    min-width: 600px;
 }
 
 .game{
@@ -29,11 +29,26 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    border-radius: 8px;
     height: 400px;
-    width: 400px;
-    background-color: 	#212d36;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+    background-color:	#212d36;
+    margin: 0;
+}
+
+.char{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #212d36;
+    /* padding: 0px 15px; */
+    height: 400px;
+    /* width: 200px; */
+    margin: 0;
+}
+
+.char_img{
+    height: 200px;
+    margin: 0;
 }
 
 h1 {
@@ -121,6 +136,7 @@ button:disabled {
     opacity: 0; /* Initially hidden */
     transition: opacity 0.1s ease; /* Smooth fade effect */
     color: #6fa8dc;
+    text-align: center;
 }
 
 /* Fully visible status */

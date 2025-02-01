@@ -1,4 +1,5 @@
 const animations = ['spin-and-fall', 'zoom-spin', 'wobble']; // Variety of animations
+const faceImg = document.querySelector('.char_img'); // Character image element
 
 // Helper function to create dice face
 function createDiceFace(value, diceElement) {
@@ -39,21 +40,9 @@ function rollDice() {
 // Generate motivational text based on roll result
 function getMotivationalText(total) {
     if (total >= 6) {
-        const cheerfulPhrases = [
-            `Amazing!`,
-            `You are brilliant!`,
-            `Fantastic roll!`,
-            `You're unstoppable!`,
-        ];
-        return cheerfulPhrases[Math.floor(Math.random() * cheerfulPhrases.length)];
+        return "Amazing! You're brilliant!";
     } else {
-        const motivationalPhrases = [
-            `Don't worry, try again!`,
-            `Don't be upset, sweet!`,
-            `Keep going!`,
-            `You'll get there!`,
-        ];
-        return motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
+        return "Don't worry, try again!";
     }
 }
 
@@ -63,6 +52,9 @@ function freeRolling() {
     const dice2 = document.getElementById('dice2');
     const status = document.getElementById('status');
     const totalText = document.getElementById('total');
+
+    // Set "waiting" face when rolling
+    faceImg.src = "./face_right.PNG";
 
     // Fade out the status text
     status.classList.remove('visible');
@@ -83,6 +75,12 @@ function freeRolling() {
         status.textContent = getMotivationalText(total);
         totalText.textContent = total;
 
+        // Change face based on the score
+        if (total >= 6) {
+            faceImg.src = "./face_happy.PNG";
+        } else {
+            faceImg.src = "./face_upset.PNG";
+        }
 
         // Fade in the status text
         setTimeout(() => {

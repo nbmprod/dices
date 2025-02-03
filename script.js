@@ -54,7 +54,7 @@ function freeRolling() {
     const totalText = document.getElementById('total');
 
     // Set "waiting" face when rolling
-    faceImg.src = "./face_right.PNG";
+    faceImg.src = "./k_pic1.jpg";
 
     // Fade out the status text
     status.classList.remove('visible');
@@ -77,9 +77,9 @@ function freeRolling() {
 
         // Change face based on the score
         if (total >= 6) {
-            faceImg.src = "./face_happy.PNG";
+            faceImg.src = "./k_pic2.jpg";
         } else {
-            faceImg.src = "./face_upset.PNG";
+            faceImg.src = "./k_pic1.jpg";
         }
 
         // Fade in the status text

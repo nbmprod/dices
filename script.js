@@ -8,25 +8,8 @@ const maxLoveScore = 50;
 
 // Helper function to create dice face
 function createDiceFace(value, diceElement) {
-    diceElement.innerHTML = '';
-    const dotPositions = {
-        1: [4],
-        2: [0, 8],
-        3: [0, 4, 8],
-        4: [0, 2, 6, 8],
-        5: [0, 2, 4, 6, 8],
-        6: [0, 2, 3, 5, 6, 8],
-    };
-    const positions = dotPositions[value];
-    for (let i = 0; i < 9; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        if (positions.includes(i)) {
-            diceElement.appendChild(dot);
-        } else {
-            diceElement.appendChild(document.createElement('div'));
-        }
-    }
+    // Update the src attribute of the dice image
+    diceElement.src = `./dice${value}.png`;
 }
 
 // Helper function to animate dice

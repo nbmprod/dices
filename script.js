@@ -4,7 +4,7 @@ const loveBarFill = document.getElementById('loveBarFill'); // Love bar fill ele
 
 // Game state variables
 let totalLoveScore = 0;
-const maxLoveScore = 50;
+const maxLoveScore = 200;
 
 // Helper function to create dice face
 function createDiceFace(value, diceElement) {
@@ -42,6 +42,7 @@ function getMotivationalText(total) {
 function updateLoveBar(rollScore) {
     // Add the current roll to the total score
     totalLoveScore += rollScore;
+    console.log(totalLoveScore)
     
     // Cap the maximum score at maxLoveScore
     if (totalLoveScore > maxLoveScore) {
@@ -70,7 +71,7 @@ function freeRolling() {
     const totalText = document.getElementById('total');
 
     // Set "waiting" face when rolling
-    faceImg.src = "./k_pic1.jpg";
+    faceImg.src = "./girl_good1.png";
 
     // Fade out the status text
     status.classList.remove('visible');
@@ -95,10 +96,17 @@ function freeRolling() {
         updateLoveBar(total);
 
         // Change face based on the score
-        if (total >= 6) {
-            faceImg.src = "./k_pic2.jpg";
+        if (total >= 6 && roll1 != roll2) {
+            faceImg.src = "./girl_good3.png"; 
+        } else if (total < 6 && roll1 != roll2) {
+            faceImg.src = "./sad_girl2.png"; 
+        } else if (roll1 == roll2) {
+            faceImg.src = "./girl_good2.png";
+            status.textContent = "DOUBLE!!!";
+            totalText.textContent = `2x ${total}`;
+            updateLoveBar(total); 
         } else {
-            faceImg.src = "./k_pic1.jpg";
+            faceImg.src = "./girl_good1.png"; 
         }
 
         // Fade in the status text

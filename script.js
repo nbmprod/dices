@@ -4,7 +4,22 @@ const loveBarFill = document.getElementById('loveBarFill'); // Love bar fill ele
 
 // Game state variables
 let totalLoveScore = 0;
-const maxLoveScore = 200;
+const maxLoveScore = 50;
+
+let heartCount = 0;
+
+let roll1 = 0;
+let roll2 = 0;
+
+// Show heart
+function addHeart(){
+    let heartText = document.getElementById('hearts');
+
+    if (heartCount > 1) {
+        heartText.textContent = `Heart: ${heartCount}`;
+    }
+
+}
 
 // Helper function to create dice face
 function createDiceFace(value, diceElement) {
@@ -20,7 +35,7 @@ function animateDice(diceElement) {
     diceElement.style.animation = `${animation} 1s ease-in-out`;
 }
 
-// Roll dice for Player or CPU
+// Roll dice
 function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
 }
@@ -61,6 +76,12 @@ function updateLoveBar(rollScore) {
     } else {
         loveBarFill.classList.remove('full');
     }
+
+    if (totalLoveScore == maxLoveScore) {
+        heartCount++
+        addHeart()
+    }
+    
 }
 
 // Free Rolling Mode
@@ -81,8 +102,8 @@ function freeRolling() {
     animateDice(dice2);
 
     setTimeout(() => {
-        const roll1 = rollDice();
-        const roll2 = rollDice();
+        roll1 = rollDice();
+        roll2 = rollDice();
         const total = roll1 + roll2;
 
         createDiceFace(roll1, dice1);

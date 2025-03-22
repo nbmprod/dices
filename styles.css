@@ -319,3 +319,20 @@ button:disabled {
         transform: rotate(360deg);
     }
 }
+
+/* No keyframes needed in CSS */
+.char_img {
+    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.char_img.good {
+    animation: good 1s forwards; /* Good score animation (plays once) */
+}
+
+.char_img.bad {
+    animation: bad 1s forwards; /* Bad score animation (plays once) */
+}
+
+.char_img.double {
+    animation: double 1s forwards; /* Double score animation (plays once) */
+}

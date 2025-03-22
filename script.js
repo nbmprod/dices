@@ -84,15 +84,50 @@ function updateLoveBar(rollScore) {
     
 }
 
+// Preload all character images
+const charImages = {
+    default: ['./default1.png', './default2.png', './default3.png', './default4.png'],
+    good: ['./good1.png', './good2.png', './good3.png'],
+    bad: ['./bad1.png', './bad2.png', './bad3.png'],
+    double: ['./good1.png', './good2.png', './good3.png']
+};
+
+// Function to preload images
+function preloadImages(images) {
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
+// Preload all images
+Object.values(charImages).forEach(preloadImages);
+
+// Function to play an animation sequence
+function playAnimation(images, duration) {
+    const charImg = document.getElementById('char');
+    let index = 0;
+
+    const interval = setInterval(() => {
+        if (index >= images.length) {
+            clearInterval(interval);
+            return;
+        }
+        charImg.src = images[index];
+        index++;
+    }, duration / images.length);
+}
+
 // Free Rolling Mode
 function freeRolling() {
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
     const status = document.getElementById('status');
     const totalText = document.getElementById('total');
+    const charImg = document.getElementById('char');
 
     // Set "waiting" face when rolling
-    faceImg.src = "./girl_good1.png";
+    charImg.src = charImages.default[0]; // Reset to default image
 
     // Fade out the status text
     status.classList.remove('visible');
@@ -118,16 +153,22 @@ function freeRolling() {
 
         // Change face based on the score
         if (total >= 6 && roll1 != roll2) {
-            faceImg.src = "./girl_good3.png"; 
+            playAnimation(charImages.good, 300, () => {
+                charImg.src = charImages.good[charImages.good.length - 1]; // Set last frame after animation
+            });
         } else if (total < 6 && roll1 != roll2) {
-            faceImg.src = "./sad_girl2.png"; 
+            playAnimation(charImages.bad, 300, () => {
+                charImg.src = charImages.bad[charImages.bad.length - 1]; // Set last frame after animation
+            });        
         } else if (roll1 == roll2) {
-            faceImg.src = "./girl_good2.png";
+            playAnimation(charImages.double, 300, () => {
+                charImg.src = charImages.double[charImages.double.length - 1]; // Set last frame after animation
+            });            
             status.textContent = "DOUBLE!!!";
             totalText.textContent = `2x ${total}`;
-            updateLoveBar(total); 
+            updateLoveBar(total);
         } else {
-            faceImg.src = "./girl_good1.png"; 
+            charImg.src = charImages.default[0]; // Default image
         }
 
         // Fade in the status text

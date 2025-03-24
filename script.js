@@ -57,23 +57,27 @@ function getMotivationalText(total) {
 // Load stored love bar progress on page load
 function loadLoveBar() {
     let savedLoveScore = localStorage.getItem("loveScore");
-    console.log("Loaded loveScore from storage:", savedLoveScore); // Debugging
-
+    
     if (savedLoveScore !== null) {
         totalLoveScore = parseInt(savedLoveScore);
-        
-        // Calculate and set love bar height directly
-        const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
-        loveBarFill.style.height = `${fillPercentage}%`;
-
-        // If the bar is full, add the full class
-        if (totalLoveScore === maxLoveScore) {
-            loveBarFill.classList.add('full');
-        } else {
-            loveBarFill.classList.remove('full');
-        }
+    } else {
+        totalLoveScore = 0; // Default to 0 if there's no saved score
     }
+
+    // Update the love bar visually based on stored value
+    const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
+    loveBarFill.style.height = `${fillPercentage}%`;
+
+    // If the bar is full, add the 'full' class
+    if (totalLoveScore === maxLoveScore) {
+        loveBarFill.classList.add('full');
+    } else {
+        loveBarFill.classList.remove('full');
+    }
+
+    console.log("Loaded loveScore:", totalLoveScore); // Debugging log
 }
+
 
 function saveLoveBar() {
     console.log("Saving loveScore:", totalLoveScore); // Debugging
@@ -82,22 +86,29 @@ function saveLoveBar() {
 
 // Update the love bar and store progress
 function updateLoveBar(rollScore) {
+    // Update the total score
     totalLoveScore += rollScore;
+
+    // Cap the score to the max limit
     if (totalLoveScore > maxLoveScore) {
         totalLoveScore = maxLoveScore;
     }
 
-    // Update the UI
+    // Calculate the percentage filled
     const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
+    
+    // Set love bar height visually
     loveBarFill.style.height = `${fillPercentage}%`;
 
+    // Add 'full' class if the bar is full
     if (totalLoveScore === maxLoveScore) {
         loveBarFill.classList.add('full');
     } else {
         loveBarFill.classList.remove('full');
     }
 
-    saveLoveBar(); // Save progress to localStorage
+    // Always save the updated score
+    localStorage.setItem("loveScore", totalLoveScore);
 }
 
 // Reset love bar on character click
@@ -207,15 +218,15 @@ function freeRolling() {
 
 // Initialize love bar to empty
 function initGame() {
-    // Set initial love bar height to 0%
-    loveBarFill.style.height = '0%';
-    
-    // Initialize the dice faces
+    loadLoveBar(); // Load saved love bar state
+
+    // Initialize dice faces
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
     createDiceFace(1, dice1);
     createDiceFace(1, dice2);
 }
+
 
 // Event Listeners
 document.getElementById('freeRollButton').addEventListener('click', freeRolling);

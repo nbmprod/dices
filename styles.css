@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Crafty+Girls&family=Mea+Culpa&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Shrikhand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Charm:wght@400;700&family=Crafty+Girls&family=Mea+Culpa&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Shrikhand&display=swap');
 
 body {
     font-family: Arial, sans-serif;
@@ -66,6 +66,11 @@ body {
 .bg__full{
     background-image: url(./love_bg.jpg);
     background-size: contain;
+}
+
+.text__pink{
+    color: red !important;
+    text-decoration: double;
 }
 
 h1 {

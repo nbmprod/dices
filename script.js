@@ -7,6 +7,8 @@ let totalLoveScore = 0;
 const maxLoveScore = 50;
 loadLoveBar();
 
+const status = document.getElementById('status');
+
 const char = document.getElementById("char");
 
 let heartCount = 0;
@@ -59,25 +61,35 @@ function getMotivationalText(total) {
 // Load stored love bar progress on page load
 function loadLoveBar() {
     let savedLoveScore = localStorage.getItem("loveScore");
-    
+    let fullTimestamp = localStorage.getItem("loveBarFullTime");
+
     if (savedLoveScore !== null) {
         totalLoveScore = parseInt(savedLoveScore);
     } else {
-        totalLoveScore = 0; // Default to 0 if there's no saved score
+        totalLoveScore = 0;
     }
 
-    // Update the love bar visually based on stored value
+    if (fullTimestamp !== null && totalLoveScore == maxLoveScore) {
+        let elapsedTime = (Date.now() - parseInt(fullTimestamp)) / 1000; // Convert to seconds
+
+        if (elapsedTime >= 600) {
+            totalLoveScore = 0; // 10 minutes passed, reset to 0
+            localStorage.removeItem("loveBarFullTime");
+        } else if (elapsedTime >= 300) {
+            totalLoveScore = Math.floor(maxLoveScore / 2); // 5 minutes passed, set to half
+        }
+    }
+
     const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
     loveBarFill.style.height = `${fillPercentage}%`;
 
-    // If the bar is full, add the 'full' class
     if (totalLoveScore === maxLoveScore) {
         loveBarFill.classList.add('full');
     } else {
         loveBarFill.classList.remove('full');
     }
 
-    console.log("Loaded loveScore:", totalLoveScore); // Debugging log
+    localStorage.setItem("loveScore", totalLoveScore);
 }
 
 
@@ -92,8 +104,9 @@ function updateLoveBar(rollScore) {
     totalLoveScore += rollScore;
 
     // Cap the score to the max limit
-    if (totalLoveScore > maxLoveScore) {
+    if (totalLoveScore >= maxLoveScore) {
         totalLoveScore = maxLoveScore;
+        localStorage.setItem("loveBarFullTime", Date.now()); // Save the timestamp when max is reached
     }
 
     // Calculate the percentage filled
@@ -106,14 +119,36 @@ function updateLoveBar(rollScore) {
     if (totalLoveScore === maxLoveScore) {
         loveBarFill.classList.add('full');
         char.classList.add('bg__full')
+        status.textContent = "I am fulfilled! Come back in some time <3"
+        status.classList.add('text__pink')
     } else {
         loveBarFill.classList.remove('full');
         char.classList.remove('bg__full');
+        status.classList.remove('text__pink');
     }
 
     // Always save the updated score
     localStorage.setItem("loveScore", totalLoveScore);
 }
+
+//Keep love status
+function keepLoveBar() {
+    // Add 'full' class if the bar is full
+    if (totalLoveScore === maxLoveScore) {
+        loveBarFill.classList.add('full');
+        char.classList.add('bg__full')
+        status.textContent = "I am fulfilled! Come back in some time <3"
+        status.classList.add('text__pink')
+    } else {
+        loveBarFill.classList.remove('full');
+        char.classList.remove('bg__full');
+        status.classList.remove('text__pink');
+    }
+
+    // Always save the updated score
+    localStorage.setItem("loveScore", totalLoveScore);
+}
+
 
 // Reset love bar on character click
 char.addEventListener("click", function () {
@@ -164,7 +199,6 @@ function playAnimation(images, duration) {
 function freeRolling() {
     const dice1 = document.getElementById('dice1');
     const dice2 = document.getElementById('dice2');
-    const status = document.getElementById('status');
     const totalText = document.getElementById('total');
     const charImg = document.getElementById('char');
 
@@ -238,3 +272,9 @@ document.getElementById('freeRollButton').addEventListener('click', freeRolling)
 
 // Initialize the game when the page loads
 window.addEventListener('load', initGame);
+
+// Auto-check every minute to update the love bar decay
+setInterval(() => {
+    loadLoveBar();
+    keepLoveBar()
+}, 100); // Runs every 60 seconds (1 minute)

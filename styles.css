@@ -63,6 +63,11 @@ body {
     background-color: #ffffff;
 }
 
+.bg__full{
+    background-image: url(./love_bg.jpg);
+    background-size: contain;
+}
+
 h1 {
     margin-bottom: 0;
     font-size: 1.5rem; /* Smaller font for mobile */

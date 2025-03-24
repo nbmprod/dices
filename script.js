@@ -7,6 +7,8 @@ let totalLoveScore = 0;
 const maxLoveScore = 50;
 loadLoveBar();
 
+const char = document.getElementById("char");
+
 let heartCount = 0;
 
 let roll1 = 0;
@@ -103,8 +105,10 @@ function updateLoveBar(rollScore) {
     // Add 'full' class if the bar is full
     if (totalLoveScore === maxLoveScore) {
         loveBarFill.classList.add('full');
+        char.classList.add('bg__full')
     } else {
         loveBarFill.classList.remove('full');
+        char.classList.remove('bg__full');
     }
 
     // Always save the updated score
@@ -112,9 +116,10 @@ function updateLoveBar(rollScore) {
 }
 
 // Reset love bar on character click
-document.getElementById("char").addEventListener("click", function () {
+char.addEventListener("click", function () {
     totalLoveScore = 0;
     loveBarFill.style.height = "0%";
+    char.classList.remove('bg__full');
     localStorage.removeItem("loveScore"); // Remove saved progress
 });
 

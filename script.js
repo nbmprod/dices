@@ -20,8 +20,8 @@ let roll2 = 0;
 function addHeart(){
     let heartText = document.getElementById('hearts');
 
-    if (heartCount > 1) {
-        heartText.textContent = `Heart: ${heartCount}`;
+    if (heartCount >= 1) {
+        heartText.textContent = `${heartCount}`;
     }
 
 }
@@ -121,6 +121,7 @@ function updateLoveBar(rollScore) {
         char.classList.add('bg__full')
         status.textContent = "I am fulfilled! Come back in some time <3"
         status.classList.add('text__pink')
+        heartCount++
     } else {
         loveBarFill.classList.remove('full');
         char.classList.remove('bg__full');
@@ -139,6 +140,8 @@ function keepLoveBar() {
         char.classList.add('bg__full')
         status.textContent = "I am fulfilled! Come back in some time <3"
         status.classList.add('text__pink')
+        addHeart()
+        console.log(heartCount)
     } else {
         loveBarFill.classList.remove('full');
         char.classList.remove('bg__full');

@@ -5,6 +5,7 @@ const loveBarFill = document.getElementById('loveBarFill'); // Love bar fill ele
 // Game state variables
 let totalLoveScore = 0;
 const maxLoveScore = 50;
+loadLoveBar();
 
 let heartCount = 0;
 
@@ -53,36 +54,61 @@ function getMotivationalText(total) {
     }
 }
 
-// Update the love bar based on current total score
+// Load stored love bar progress on page load
+function loadLoveBar() {
+    let savedLoveScore = localStorage.getItem("loveScore");
+    console.log("Loaded loveScore from storage:", savedLoveScore); // Debugging
+
+    if (savedLoveScore !== null) {
+        totalLoveScore = parseInt(savedLoveScore);
+        
+        // Calculate and set love bar height directly
+        const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
+        loveBarFill.style.height = `${fillPercentage}%`;
+
+        // If the bar is full, add the full class
+        if (totalLoveScore === maxLoveScore) {
+            loveBarFill.classList.add('full');
+        } else {
+            loveBarFill.classList.remove('full');
+        }
+    }
+}
+
+function saveLoveBar() {
+    console.log("Saving loveScore:", totalLoveScore); // Debugging
+    localStorage.setItem("loveScore", totalLoveScore);
+}
+
+// Update the love bar and store progress
 function updateLoveBar(rollScore) {
-    // Add the current roll to the total score
     totalLoveScore += rollScore;
-    console.log(totalLoveScore)
-    
-    // Cap the maximum score at maxLoveScore
     if (totalLoveScore > maxLoveScore) {
         totalLoveScore = maxLoveScore;
     }
-    
-    // Calculate the percentage filled
+
+    // Update the UI
     const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
-    
-    // Update the love bar height
     loveBarFill.style.height = `${fillPercentage}%`;
-    
-    // If the bar is full, add a special class (for potential effects)
-    if (fillPercentage >= 100) {
+
+    if (totalLoveScore === maxLoveScore) {
         loveBarFill.classList.add('full');
     } else {
         loveBarFill.classList.remove('full');
     }
 
-    if (totalLoveScore == maxLoveScore) {
-        heartCount++
-        addHeart()
-    }
-    
+    saveLoveBar(); // Save progress to localStorage
 }
+
+// Reset love bar on character click
+document.getElementById("char").addEventListener("click", function () {
+    totalLoveScore = 0;
+    loveBarFill.style.height = "0%";
+    localStorage.removeItem("loveScore"); // Remove saved progress
+});
+
+// Initialize game with stored progress
+window.addEventListener("load", loadLoveBar);
 
 // Preload all character images
 const charImages = {
@@ -153,15 +179,15 @@ function freeRolling() {
 
         // Change face based on the score
         if (total >= 6 && roll1 != roll2) {
-            playAnimation(charImages.good, 300, () => {
+            playAnimation(charImages.good, 100, () => {
                 charImg.src = charImages.good[charImages.good.length - 1]; // Set last frame after animation
             });
         } else if (total < 6 && roll1 != roll2) {
-            playAnimation(charImages.bad, 300, () => {
+            playAnimation(charImages.bad, 100, () => {
                 charImg.src = charImages.bad[charImages.bad.length - 1]; // Set last frame after animation
             });        
         } else if (roll1 == roll2) {
-            playAnimation(charImages.double, 300, () => {
+            playAnimation(charImages.double, 100, () => {
                 charImg.src = charImages.double[charImages.double.length - 1]; // Set last frame after animation
             });            
             status.textContent = "DOUBLE!!!";

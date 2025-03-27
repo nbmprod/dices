@@ -1,15 +1,15 @@
 const animations = ['spin-and-fall', 'zoom-spin', 'wobble']; // Variety of animations
 const faceImg = document.querySelector('.char_img'); // Character image element
 const loveBarFill = document.getElementById('loveBarFill'); // Love bar fill element
+const status = document.getElementById('status');
 
+const char = document.getElementById("char");
 // Game state variables
 let totalLoveScore = 0;
 const maxLoveScore = 50;
 loadLoveBar();
 
-const status = document.getElementById('status');
 
-const char = document.getElementById("char");
 
 let heartCount = 0;
 
@@ -63,23 +63,55 @@ function loadLoveBar() {
     let savedLoveScore = localStorage.getItem("loveScore");
     let fullTimestamp = localStorage.getItem("loveBarFullTime");
 
-    if (savedLoveScore !== null) {
-        totalLoveScore = parseInt(savedLoveScore);
-    } else {
-        totalLoveScore = 0;
+    // Initialize score
+    let loadedScore = savedLoveScore !== null ? parseInt(savedLoveScore) : 0;
+    totalLoveScore = loadedScore;
+
+    // Only check decay if the bar was full and we have a timestamp
+    if (fullTimestamp !== null && loadedScore === maxLoveScore) {
+        const elapsedSeconds = (Date.now() - parseInt(fullTimestamp)) / 1000;
+        
+        if (elapsedSeconds >= 3600) { // After 60 seconds (1 minute)
+            totalLoveScore = 0;
+            localStorage.removeItem("loveBarFullTime");
+            localStorage.setItem("loveScore", 0);
+            console.log("❤️ Love bar reset to 0 after 60 seconds");
+        } 
+        // If less than 30 seconds, keep it full
+        console.log(`Decay check - Current score: ${totalLoveScore}, Elapsed: ${elapsedSeconds}s`);
     }
 
-    if (fullTimestamp !== null && totalLoveScore == maxLoveScore) {
-        let elapsedTime = (Date.now() - parseInt(fullTimestamp)) / 1000; // Convert to seconds
+    updateLoveBarVisuals();
+   
 
-        if (elapsedTime >= 600) {
-            totalLoveScore = 0; // 10 minutes passed, reset to 0
+    // Special case handling when full
+    if (totalLoveScore === maxLoveScore) {
+        char.classList.add('bg__full');
+        status.textContent = "I am fulfilled! Come back in some time <3";
+        status.classList.add('text__pink');
+    } else if (totalLoveScore == 0) {
+        char.classList.remove('bg__full');
+        status.textContent = "Hello :3";
+
+        status.classList.remove('text__pink');
+        // Clear the timestamp if the bar isn't full anymore
+        if (fullTimestamp !== null) {
             localStorage.removeItem("loveBarFullTime");
-        } else if (elapsedTime >= 300) {
-            totalLoveScore = Math.floor(maxLoveScore / 2); // 5 minutes passed, set to half
         }
     }
+}
 
+// Update the reset click handler to also clear the timestamp
+char.addEventListener("click", function() {
+    totalLoveScore = 0;
+    loveBarFill.style.height = "0%";
+    char.classList.remove('bg__full');
+    localStorage.removeItem("loveScore");
+    localStorage.removeItem("loveBarFullTime"); // Add this line
+    updateLoveBarVisuals(); // Add this to ensure visuals update
+});
+
+function updateLoveBarVisuals() {
     const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
     loveBarFill.style.height = `${fillPercentage}%`;
 
@@ -89,7 +121,11 @@ function loadLoveBar() {
         loveBarFill.classList.remove('full');
     }
 
-    localStorage.setItem("loveScore", totalLoveScore);
+    // Save the current state
+
+    // Load hearts
+    const hearts = parseInt(localStorage.getItem("hearts")) || 0;
+    updateHeartDisplay(hearts);
 }
 
 
@@ -100,58 +136,66 @@ function saveLoveBar() {
 
 // Update the love bar and store progress
 function updateLoveBar(rollScore) {
+    const wasFull = (totalLoveScore === maxLoveScore);
+    
     // Update the total score
     totalLoveScore += rollScore;
-
+    
     // Cap the score to the max limit
     if (totalLoveScore >= maxLoveScore) {
         totalLoveScore = maxLoveScore;
-        localStorage.setItem("loveBarFullTime", Date.now()); // Save the timestamp when max is reached
+        
+        // Only award heart if we just reached full (not if already full)
+        if (!wasFull) {
+            awardHeart();
+            localStorage.setItem("loveBarFullTime", Date.now());
+        }
     }
 
     // Calculate the percentage filled
     const fillPercentage = (totalLoveScore / maxLoveScore) * 100;
     
-    // Set love bar height visually
+    // Update visual elements
     loveBarFill.style.height = `${fillPercentage}%`;
-
-    // Add 'full' class if the bar is full
+    
     if (totalLoveScore === maxLoveScore) {
         loveBarFill.classList.add('full');
-        char.classList.add('bg__full')
-        status.textContent = "I am fulfilled! Come back in some time <3"
-        status.classList.add('text__pink')
-        heartCount++
+        char.classList.add('bg__full');
+        status.textContent = "I am fulfilled! Come back in some time <3";
+        status.classList.add('text__pink');
     } else {
         loveBarFill.classList.remove('full');
         char.classList.remove('bg__full');
         status.classList.remove('text__pink');
     }
 
-    // Always save the updated score
     localStorage.setItem("loveScore", totalLoveScore);
 }
 
-//Keep love status
-function keepLoveBar() {
-    // Add 'full' class if the bar is full
-    if (totalLoveScore === maxLoveScore) {
-        loveBarFill.classList.add('full');
-        char.classList.add('bg__full')
-        status.textContent = "I am fulfilled! Come back in some time <3"
-        status.classList.add('text__pink')
-        addHeart()
-        console.log(heartCount)
-    } else {
-        loveBarFill.classList.remove('full');
-        char.classList.remove('bg__full');
-        status.classList.remove('text__pink');
-    }
-
-    // Always save the updated score
-    localStorage.setItem("loveScore", totalLoveScore);
+function awardHeart() {
+    // Load current hearts
+    let hearts = parseInt(localStorage.getItem("hearts")) || 0;
+    
+    // Add one heart
+    hearts += 1;
+    
+    // Save and update display
+    localStorage.setItem("hearts", hearts);
+    updateHeartDisplay(hearts);
+    
+    // Optional: Add visual/audio feedback
+    console.log("Awarded 1 heart! Total:", hearts);
 }
 
+function updateHeartDisplay(count) {
+    const heartText = document.getElementById('hearts');
+    heartText.textContent = count;
+    
+    // Optional: Add animation
+    const heartImg = document.querySelector('.hearts_img');
+    heartImg.classList.add('pulse');
+    setTimeout(() => heartImg.classList.remove('pulse'), 500);
+}
 
 // Reset love bar on character click
 char.addEventListener("click", function () {
@@ -277,7 +321,8 @@ document.getElementById('freeRollButton').addEventListener('click', freeRolling)
 window.addEventListener('load', initGame);
 
 // Auto-check every minute to update the love bar decay
+// Change your interval to this (at the bottom of the file):
 setInterval(() => {
-    loadLoveBar();
-    keepLoveBar()
-}, 100); // Runs every 60 seconds (1 minute)
+    loadLoveBar(); // This handles the decay logic
+}, 1000); // Check every second instead of every 100ms
+

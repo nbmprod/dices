@@ -236,7 +236,7 @@ button:disabled {
     text-align: center;
     margin-bottom: 0px;
     line-height: 1em;
-    margin: 0;
+    margin: 1em 0 0.5em 0;
 }
 
 /* Media query for tablet and desktop */
@@ -368,6 +368,24 @@ button:disabled {
     100% {
         transform: rotate(360deg);
     }
+}
+
+@keyframes gentleHeartbeat {
+    0%, 100% {
+        transform: scale(1);
+        animation-timing-function: cubic-bezier(0.33, 0.01, 0.67, 0.99);
+    }
+    50% {
+        transform: scale(1.1); /* More subtle scaling */
+        animation-timing-function: cubic-bezier(0.33, 0.01, 0.67, 0.99);
+    }
+}
+
+.hearts_img.pulse {
+    animation: gentleHeartbeat 1s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+    filter: drop-shadow(0 0 8px rgba(255, 100, 100, 0.3)); /* Optional soft glow */
 }
 
 /* No keyframes needed in CSS */

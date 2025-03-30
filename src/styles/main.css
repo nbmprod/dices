@@ -1,0 +1,406 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Charm:wght@400;700&family=Crafty+Girls&family=Mea+Culpa&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Shrikhand&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #2f344c;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Changed from row to column for mobile */
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #dbedff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    gap: 5px;
+    width: 90%; /* Use percentage instead of fixed width */
+    max-width: 500px; /* Add max-width for larger screens */
+    height: 300px;
+}
+.char-game_container{
+    display: flex;
+    flex-direction: row; /* Changed from row to column for mobile */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 5px;
+    width: 90%; /* Use percentage instead of fixed width */
+    max-width: 500px; /* Add max-width for larger screens */
+    height: 300px;
+}
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%; /* Full width */
+    margin: 0;
+}
+
+.char_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* width: 150px; */
+    margin: 0;
+}
+
+.char {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+    /* width: 150px; */
+    margin: 0;
+}
+
+.char_img {
+    height: auto; /* Auto height */
+    width: 150px; /* Fixed width */
+    margin: 0;
+    border: 4px solid #6fa8dc;
+    background-color: #ffffff;
+}
+
+.hearts_container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.hearts_img{
+    width: 50px;
+    height: auto;
+}
+
+.hearts_text{
+    font-family: "PT serif", serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.7em;
+    margin: 0;
+
+}
+
+.bg__full{
+    background-image: url(../../assets/images/love_bg.jpg);
+    background-size: contain;
+}
+
+.text__pink{
+    color: red !important;
+    text-decoration: double;
+}
+
+h1 {
+    margin-bottom: 0;
+    font-size: 1.5rem; /* Smaller font for mobile */
+    text-align: center;
+}
+
+.dice-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    width: 100%;
+}
+
+.dice {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    height: 40px;
+    margin: 0px;
+}
+
+.score_text {
+    font-family: "PT Serif", serif;
+    font-size: 2.5rem; /* Smaller font for mobile */
+    margin: 0;
+    font-weight: 700;
+    font-style: italic;
+    color: #6fa8dc;
+}
+
+/* Button Styling */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #6fa8dc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 120px; /* Fixed width for button */
+}
+
+button:hover {
+    opacity: 0.5;
+}
+
+/* Style for disabled button */
+button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Love Bar Container */
+.love-bar-container {
+    width: 30px;
+    height: 150px;
+    border: 4px solid #6fa8dc;
+    border-radius: 0px; /* Remove rounded corners for a more pixelated look */
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    background-color:#ffffff;
+    image-rendering: pixelated; /* Ensures the container edges are pixelated */
+}
+/* Love Bar Fill - this will be controlled by JS */
+.love-bar-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(
+        to top,
+        #0b5394 20%,  /* Dark blue */
+        #3d85c6 20%,  /* Medium blue */
+        #3d85c6 40%,  /* Medium blue */
+        #6fa8dc 40%,  /* Light blue */
+        #6fa8dc 60%,  /* Light blue */
+        #9fc5e8 60%,  /* Very light blue */
+        #9fc5e8 80%,  /* Very light blue */
+        #cfe2f3 80%   /* Lightest blue */
+    );
+    transition: height 0.5s ease-out;
+}
+
+/* Indicator marks on the bar */
+/* .love-bar-marks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+    box-sizing: border-box;
+}
+
+.mark {
+    width: 5px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-left: 5px;
+} */
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .love-bar-container {
+        width: 40px;
+        height: 150px;
+    }
+}
+
+#status {
+    font-family: "Shrikhand", serif;
+    font-weight: 400;
+    font-size: 1.4rem; /* Smaller font for mobile */
+    opacity: 1;
+    transition: opacity 0.1s ease;
+    color: #6fa8dc;
+    text-align: center;
+    margin-bottom: 0px;
+    line-height: 1em;
+    margin: 1em 0 0.5em 0;
+}
+
+/* Media query for tablet and desktop */
+@media (max-width: 500px) {
+    .container {
+        flex-direction: column; /* Row layout for mobile */
+        gap: 15px; /* Space between char section and game section */
+        padding: 15px; /* Adjust padding for mobile */
+        width: 95%; /* Slightly wider container for better spacing */
+        max-width: 600px; /* Limit maximum width for larger mobile devices */
+        height: fit-content;
+    }
+
+    .char-game_container{
+        flex-direction: row; /* Row layout for mobile */
+        gap: 10px; /* Space between char section and game section */
+        padding: 0px; /* Adjust padding for mobile */
+        width: 95%; /* Slightly wider container for better spacing */
+        max-width: 600px; /* Limit maximum width for larger mobile devices */
+        height: fit-content;
+    }
+
+    .char_container{
+        flex-direction: row; /* Stack love bar and character picture vertically */
+        align-items: center; /* Center items horizontally */
+        justify-content: center; /* Center items vertically */
+        gap: 5px; /* Space between love bar and character picture */
+        width: 100%; /* Allocate 40% of the container width to the char section */
+    }
+
+    .char {
+        flex-direction: column; /* Stack love bar and character picture vertically */
+        align-items: center; /* Center items horizontally */
+        justify-content: center; /* Center items vertically */
+        gap: 5px; /* Space between love bar and character picture */
+        width: 50%; /* Allocate 40% of the container width to the char section */
+    }
+
+    .love-bar-container {
+        width: 40px; /* Adjust love bar width */
+        height: 120px; /* Adjust love bar height */
+        margin: 0; /* Remove default margin */
+    }
+
+    .char_img {
+        width: 120px; /* Adjust character picture size */
+        height: auto; /* Maintain aspect ratio */
+        border: 4px solid #6fa8dc; /* Keep the border */
+    }
+
+    .game {
+        width: 40%; /* Allocate 60% of the container width to the game section */
+        gap: 15px; /* Space between dice, score, and button */
+        align-items: center; /* Center items horizontally */
+    }
+
+    h1 {
+        font-size: 1.4rem; /* Adjust heading size for mobile */
+    }
+
+    .dice {
+        width: 60px; /* Adjust dice size for mobile */
+        height: 60px;
+    }
+
+    .score_text {
+        font-size: 2rem; /* Adjust score text size for mobile */
+    }
+
+    button {
+        width: 100px; /* Adjust button width for mobile */
+        font-size: 0.9rem; /* Adjust button text size */
+    }
+}
+
+/* Keep animation keyframes the same */
+@keyframes spin-and-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-150px) rotate(360deg);
+    }
+    100% {
+        transform: translateY(0) rotate(720deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-200px);
+    }
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateX(0) rotateY(0);
+    }
+    50% {
+        transform: rotateX(180deg) rotateY(180deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+@keyframes zoom-spin {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.5) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@keyframes wobble {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gentleHeartbeat {
+    0%, 100% {
+        transform: scale(1);
+        animation-timing-function: cubic-bezier(0.33, 0.01, 0.67, 0.99);
+    }
+    50% {
+        transform: scale(1.1); /* More subtle scaling */
+        animation-timing-function: cubic-bezier(0.33, 0.01, 0.67, 0.99);
+    }
+}
+
+.hearts_img.pulse {
+    animation: gentleHeartbeat 1s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+    filter: drop-shadow(0 0 8px rgba(255, 100, 100, 0.3)); /* Optional soft glow */
+}
+
+/* No keyframes needed in CSS */
+.char_img {
+    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.char_img.good {
+    animation: good 1s forwards; /* Good score animation (plays once) */
+}
+
+.char_img.bad {
+    animation: bad 1s forwards; /* Bad score animation (plays once) */
+}
+
+.char_img.double {
+    animation: double 1s forwards; /* Double score animation (plays once) */
+}

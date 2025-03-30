@@ -1,0 +1,9 @@
+@keyframes rainbow-border {
+    0% { box-shadow: 0 0 5px #ff0000; }
+    16% { box-shadow: 0 0 5px #ff7f00; }
+    32% { box-shadow: 0 0 5px #ffff00; }
+    48% { box-shadow: 0 0 5px #00ff00; }
+    64% { box-shadow: 0 0 5px #0000ff; }
+    80% { box-shadow: 0 0 5px #4b0082; }
+    100% { box-shadow: 0 0 5px #9400d3; }
+  }

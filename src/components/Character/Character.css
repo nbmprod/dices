@@ -1,0 +1,31 @@
+/* Rainbow jumping letters */
+.rainbow-letter {
+    display: inline-block;
+    position: relative;
+    animation: 
+      jump 0.5s ease infinite alternate,
+      rainbow 2s linear infinite;
+  }
+  
+  @keyframes jump {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+  }
+  
+  @keyframes rainbow {
+    0% { color: #ff0000; }
+    14% { color: #ff7f00; }
+    28% { color: #ffff00; }
+    42% { color: #00ff00; }
+    57% { color: #0000ff; }
+    71% { color: #4b0082; }
+    85% { color: #9400d3; }
+    100% { color: #ff0000; }
+  }
+  
+  /* Make sure status container can handle the animation */
+  #status {
+    display: inline-block;
+    overflow: visible;
+    white-space: nowrap;
+  }

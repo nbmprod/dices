@@ -79,9 +79,14 @@ export class Character {
           this.showReaction('bad', `Don't worry!`);
         }
       }  
+
     showReaction(type, message) {
       this.playAnimation(type);
       this.setStatus(message);
+
+      if (type === 'special') { // For double rolls
+        this.createRainbowText(message);
+      }
     }
   
     playAnimation(type) {
@@ -117,6 +122,20 @@ export class Character {
         this.element.classList.remove('bg__full');
       }
     }
+
+    createRainbowText(text) {
+        // Clear previous status
+        this.statusElement.innerHTML = '';
+        
+        // Create individual letter spans
+        text.split('').forEach((letter, i) => {
+          const span = document.createElement('span');
+          span.textContent = letter;
+          span.className = 'rainbow-letter';
+          span.style.animationDelay = `${i * 0.1}s`;
+          this.statusElement.appendChild(span);
+        });
+      }
   
     reset() {
         this.element.src = this.images.default[0];

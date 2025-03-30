@@ -41,6 +41,16 @@ class DiceyDiceyGame {
   }
 
   handleRollResult({ total, isDouble }) {
+
+    // if (isDouble) {
+    //     // Enhanced double roll reaction
+    //     this.character.reactToRoll(total, isDouble);
+    //     // this.dice.element.style.animation = 'rainbow-border 1s infinite';
+    //     setTimeout(() => {
+    //       this.dice.element.style.animation = '';
+    //     }, 2000);
+    //   }
+
     // Update character reaction
     this.character.reactToRoll(total, isDouble);
     

@@ -14,8 +14,8 @@ export class Dice {
         this.animateDice(this.dice2);
         
         setTimeout(() => {
-          this.dice1.src = `../assets/images/dice${roll1}.png`;
-          this.dice2.src = `../assets/images/dice${roll2}.png`;
+          this.dice1.src = `../../../assets/images/dice${roll1}.png`;
+          this.dice2.src = `../../../assets/images/dice${roll2}.png`;
           this.updateScoreDisplay(roll1, roll2);
         }, 1000);
         

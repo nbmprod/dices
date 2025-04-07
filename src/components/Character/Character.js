@@ -4,45 +4,45 @@ export class Character {
       this.statusElement = document.getElementById('status');
       this.images = {
         default: [
-          '../assets/images/default1.png',
-          '../assets/images/default2.png',
-          '../assets/images/default3.png',
-          '../assets/images/default4.png',
-          '../assets/images/default3.png',
-          '../assets/images/default2.png',
-          '../assets/images/default1.png',
+          '../../../assets/images/default1.png',
+          '../../../assets/images/default2.png',
+          '../../../assets/images/default3.png',
+          '../../../assets/images/default4.png',
+          '../../../assets/images/default3.png',
+          '../../../assets/images/default2.png',
+          '../../../assets/images/default1.png',
         ],
         good: [
-          '../assets/images/good1.png',
-          '../assets/images/good2.png',
-          '../assets/images/good3.png',
-          '../assets/images/good3.png',
-          '../assets/images/good3.png',
-          '../assets/images/good2.png',
-          '../assets/images/good1.png'
+          '../../../assets/images/good1.png',
+          '../../../assets/images/good2.png',
+          '../../../assets/images/good3.png',
+          '../../../assets/images/good3.png',
+          '../../../assets/images/good3.png',
+          '../../../assets/images/good2.png',
+          '../../../assets/images/good1.png'
         ],
         bad: [
-          '../assets/images/bad1.png',
-          '../assets/images/bad2.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad3.png',
-          '../assets/images/bad2.png',
-          '../assets/images/bad2.png',
-          '../assets/images/bad1.png'
+          '../../../assets/images/bad1.png',
+          '../../../assets/images/bad2.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad3.png',
+          '../../../assets/images/bad2.png',
+          '../../../assets/images/bad2.png',
+          '../../../assets/images/bad1.png'
         ],
         special: [
-            '../assets/images/good1.png',
-            '../assets/images/good2.png',
-            '../assets/images/good3.png',
-            '../assets/images/good3.png',
-            '../assets/images/good3.png',
-            '../assets/images/good2.png',
-            '../assets/images/good1.png'
+            '../../../assets/images/good1.png',
+            '../../../assets/images/good2.png',
+            '../../../assets/images/good3.png',
+            '../../../assets/images/good3.png',
+            '../../../assets/images/good3.png',
+            '../../../assets/images/good2.png',
+            '../../../assets/images/good1.png'
         ]
       };
       this.preloadImages();

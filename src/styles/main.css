@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Borel&family=Charm:wght@400;700&family=Crafty+Girls&family=Mea+Culpa&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Shrikhand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Borel&family=Charm:wght@400;700&family=Crafty+Girls&family=Jersey+15&family=Jersey+20&family=Mea+Culpa&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Shrikhand&display=swap');
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Jersey 20", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,24 +45,31 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background-color: #dbedff;
+    background-color: #ffe5e4;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     gap: 5px;
     width: 90%; /* Use percentage instead of fixed width */
-    max-width: 500px; /* Add max-width for larger screens */
-    height: 300px;
+    max-width: 400px; /* Add max-width for larger screens */
+    height: 600px;
+    box-shadow:
+    0 0 0 2px #F5C3C2,
+    4px 4px 0 0 #F5C3C2,
+    -4px 4px 0 0 #F5C3C2,
+    4px -4px 0 0 #F5C3C2,
+    -4px -4px 0 0 #F5C3C2;
+    image-rendering: pixelated;
+    
 }
 .char-game_container{
     display: flex;
-    flex-direction: row; /* Changed from row to column for mobile */
+    flex-direction: column; /* Changed from row to column for mobile */
     align-items: center;
     justify-content: center;
     padding: 20px;
     gap: 5px;
     width: 90%; /* Use percentage instead of fixed width */
     max-width: 500px; /* Add max-width for larger screens */
-    height: 300px;
 }
 .game {
     display: flex;
@@ -98,8 +105,10 @@ body {
     height: auto; /* Auto height */
     width: 150px; /* Fixed width */
     margin: 0;
-    border: 4px solid #6fa8dc;
-    background-color: #ffffff;
+    border: 4px solid #886c6c;
+    background-color: #fff2f2
+
+    ;
 }
 
 .hearts_container{
@@ -115,7 +124,7 @@ body {
 }
 
 .hearts_text{
-    font-family: "PT serif", serif;
+    font-family: "Jersey 20", sans-serif;
     font-style: italic;
     font-weight: 700;
     font-size: 1.7em;
@@ -163,25 +172,33 @@ h1 {
 }
 
 .score_text {
-    font-family: "PT Serif", serif;
-    font-size: 2.5rem; /* Smaller font for mobile */
+    font-family: "Jersey 20", sans-serif;
+    font-size: 3rem; /* Smaller font for mobile */
     margin: 0;
-    font-weight: 700;
-    font-style: italic;
-    color: #6fa8dc;
+    font-weight: 400;
+    color: #886c6c;
 }
 
 /* Button Styling */
 button {
     padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #6fa8dc;
+    margin: 15px 0 0 0;
+    font-family: "Jersey 20", sans-serif;;
+    font-size: 2rem;
+    background-color: #ab8888;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
     width: 120px; /* Fixed width for button */
+    box-shadow:
+    0 0 0 2px #886c6c,
+    4px 4px 0 0 #886c6c,
+    -4px 4px 0 0 #886c6c,
+    4px -4px 0 0 #886c6c,
+    -4px -4px 0 0 #886c6c;
+    image-rendering: pixelated;
 }
 
 button:hover {
@@ -200,7 +217,7 @@ button:disabled {
 .love-bar-container {
     width: 30px;
     height: 150px;
-    border: 4px solid #6fa8dc;
+    border: 4px solid #886c6c;
     border-radius: 0px; /* Remove rounded corners for a more pixelated look */
     position: relative;
     overflow: hidden;
@@ -216,14 +233,14 @@ button:disabled {
     height: 0%;
     background: linear-gradient(
         to top,
-        #0b5394 20%,  /* Dark blue */
-        #3d85c6 20%,  /* Medium blue */
-        #3d85c6 40%,  /* Medium blue */
-        #6fa8dc 40%,  /* Light blue */
-        #6fa8dc 60%,  /* Light blue */
-        #9fc5e8 60%,  /* Very light blue */
-        #9fc5e8 80%,  /* Very light blue */
-        #cfe2f3 80%   /* Lightest blue */
+        #ab8888 20%,  /* Dark warm pink */
+        #c59a9a 20%,  /* Soft medium pink */
+        #c59a9a 40%,
+        #dcb0b0 40%,  /* Muted rose */
+        #dcb0b0 60%,
+        #ebcfcf 60%,  /* Light blush */
+        #ebcfcf 80%,
+        #f7eaea 80%   /* Very light rosy pink */
     );
     transition: height 0.5s ease-out;
 }
@@ -256,90 +273,19 @@ button:disabled {
 }
 
 #status {
-    font-family: "Shrikhand", serif;
+    font-family: "Jersey 20", sans-serif;
     font-weight: 400;
-    font-size: 1.4rem; /* Smaller font for mobile */
+    font-size: 2.5rem; /* Smaller font for mobile */
     opacity: 1;
     transition: opacity 0.1s ease;
-    color: #6fa8dc;
+    color: #ab8888;
     text-align: center;
     margin-bottom: 0px;
     line-height: 1em;
-    margin: 1em 0 0.5em 0;
+    margin: 0em 0 0em 0;
 }
 
-/* Media query for tablet and desktop */
-@media (max-width: 500px) {
-    .container {
-        flex-direction: column; /* Row layout for mobile */
-        gap: 15px; /* Space between char section and game section */
-        padding: 15px; /* Adjust padding for mobile */
-        width: 95%; /* Slightly wider container for better spacing */
-        max-width: 600px; /* Limit maximum width for larger mobile devices */
-        height: fit-content;
-    }
 
-    .char-game_container{
-        flex-direction: row; /* Row layout for mobile */
-        gap: 10px; /* Space between char section and game section */
-        padding: 0px; /* Adjust padding for mobile */
-        width: 95%; /* Slightly wider container for better spacing */
-        max-width: 600px; /* Limit maximum width for larger mobile devices */
-        height: fit-content;
-    }
-
-    .char_container{
-        flex-direction: row; /* Stack love bar and character picture vertically */
-        align-items: center; /* Center items horizontally */
-        justify-content: center; /* Center items vertically */
-        gap: 5px; /* Space between love bar and character picture */
-        width: 100%; /* Allocate 40% of the container width to the char section */
-    }
-
-    .char {
-        flex-direction: column; /* Stack love bar and character picture vertically */
-        align-items: center; /* Center items horizontally */
-        justify-content: center; /* Center items vertically */
-        gap: 5px; /* Space between love bar and character picture */
-        width: 50%; /* Allocate 40% of the container width to the char section */
-    }
-
-    .love-bar-container {
-        width: 40px; /* Adjust love bar width */
-        height: 120px; /* Adjust love bar height */
-        margin: 0; /* Remove default margin */
-    }
-
-    .char_img {
-        width: 120px; /* Adjust character picture size */
-        height: auto; /* Maintain aspect ratio */
-        border: 4px solid #6fa8dc; /* Keep the border */
-    }
-
-    .game {
-        width: 40%; /* Allocate 60% of the container width to the game section */
-        gap: 15px; /* Space between dice, score, and button */
-        align-items: center; /* Center items horizontally */
-    }
-
-    h1 {
-        font-size: 1.4rem; /* Adjust heading size for mobile */
-    }
-
-    .dice {
-        width: 60px; /* Adjust dice size for mobile */
-        height: 60px;
-    }
-
-    .score_text {
-        font-size: 2rem; /* Adjust score text size for mobile */
-    }
-
-    button {
-        width: 100px; /* Adjust button width for mobile */
-        font-size: 0.9rem; /* Adjust button text size */
-    }
-}
 
 /* Keep animation keyframes the same */
 @keyframes spin-and-fall {
